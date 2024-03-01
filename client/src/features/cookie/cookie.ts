@@ -10,3 +10,7 @@ export const setCookie = (value: string, httpOnly: boolean = false) => {
 export const getCookie = () => {
 	return Cookies.get("strimiera_access_token");
 };
+
+export const removeCookie = () => {
+	Cookies.remove("strimiera_access_token");
+};

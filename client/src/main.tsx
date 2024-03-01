@@ -15,6 +15,7 @@ export const notFoundRoute = new NotFoundRoute({
 	getParentRoute: () => rootRoute,
 	component: NotFound,
 });
+
 const router = createRouter({ routeTree, notFoundRoute });
 
 const client = new ApolloClient({
@@ -24,7 +25,6 @@ const client = new ApolloClient({
 
 declare module "@tanstack/react-router" {
 	interface Register {
-		// This infers the type of our router and registers it across your entire project
 		router: typeof router;
 	}
 }

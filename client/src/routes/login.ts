@@ -8,7 +8,9 @@ export const Route = createFileRoute("/login")({
 	beforeLoad: async () => {
 		const cookie = getCookie();
 		if (cookie) {
-			throw redirect({ to: ROUTES.profile });
+			throw redirect({
+				to: ROUTES.profile,
+			});
 		}
 	},
 });
