@@ -4,7 +4,6 @@ import { UpdateMediaQueryInput } from './dto/update-media-query.input';
 import { PrismaService } from 'src/modules/prisma/prisma.service';
 import { EnvService } from 'src/modules/env/env.service';
 import { MovieDb } from 'moviedb-promise';
-import { newError } from 'utils';
 
 @Injectable()
 export class MediaQueryService {
@@ -16,17 +15,7 @@ export class MediaQueryService {
   moviedb = new MovieDb(this.env.get('MOVIEDB_API_KEY'));
   logger = new Logger(MediaQueryService.name);
 
-  async create(createMediaQueryInput: CreateMediaQueryInput) {
-    return this.prisma.message
-      .create({
-        data: {
-          ...createMediaQueryInput,
-        },
-      })
-      .catch((error) => {
-        this.logger.error(error);
-      });
-  }
+  async create(createMediaQueryInput: CreateMediaQueryInput) {}
 
   async searchMovies(title: string) {
     try {
@@ -46,21 +35,5 @@ export class MediaQueryService {
     return `This action updates a #${id} mediaQuery`;
   }
 
-  async remove(id: number) {
-    try {
-      const deleted = await this.prisma.message.delete({
-        where: {
-          id,
-        },
-      });
-
-      if (deleted) {
-        return deleted;
-      }
-    } catch (error) {
-      this.logger.error(error);
-    }
-
-    return null;
-  }
+  async remove(id: number) {}
 }

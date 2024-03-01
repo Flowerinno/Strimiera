@@ -5,6 +5,7 @@ import { PrismaService } from 'src/modules/prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
 import { AuthService } from '../auth/auth.service';
 import { Response } from 'express';
+import { LoginUserInput } from './dto/login-user-input';
 
 @Injectable()
 export class UserService {
@@ -40,6 +41,41 @@ export class UserService {
       });
 
       if (!user) throw new Error('User not created');
+
+      return {
+        ...user,
+        token,
+      };
+    } catch (error) {
+      return { message: error?.message };
+    }
+  }
+
+  async login(loginUserInput: LoginUserInput) {
+    try {
+      const user = await this.prisma.user.findUnique({
+        where: {
+          email: loginUserInput.email,
+        },
+      });
+
+      if (!user) {
+        return { message: 'User not found' };
+      }
+
+      const match = await bcrypt.compare(
+        loginUserInput.password,
+        user.password,
+      );
+
+      if (!match) {
+        return { message: 'Invalid credentials' };
+      }
+
+      const token = await this.auth.generateToken({
+        email: user.email,
+        id: user.id.toString(),
+      });
 
       return {
         ...user,

@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+	--toastify-color-success: #9323c4;
+}
+
 .button {
 	@apply bg-purple text-white p-5 rounded-md text-center hover:outline-dashed transition-all duration-300;
 }

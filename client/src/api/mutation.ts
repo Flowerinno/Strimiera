@@ -13,3 +13,7 @@ export const CREATE_USER_MUTATION = gql(`
 		}
 	}
 `);
+
+export const LOGIN_USER_MUTATION = gql(
+	`\n\tmutation login($email: String!, $password: String!) {\n\t\tlogin(loginUserInput: { email: $email, password: $password }) {\n\t\t\tid\n\t\t\tname\n\t\t\temail\n\t\t\tmessage\n\t\t\ttoken\n\t\t}\n\t}\n`
+);

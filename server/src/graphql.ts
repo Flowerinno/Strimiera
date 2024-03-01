@@ -22,6 +22,11 @@ export class CreateUserInput {
     password?: Nullable<string>;
 }
 
+export class LoginUserInput {
+    email: string;
+    password: string;
+}
+
 export class UpdateUserInput {
     id: number;
     email?: Nullable<string>;
@@ -65,6 +70,8 @@ export abstract class IMutation {
 
     abstract createUser(createUserInput: CreateUserInput): Nullable<CreateUserResponse> | Promise<Nullable<CreateUserResponse>>;
 
+    abstract login(loginUserInput: LoginUserInput): Nullable<LoginUserResponse> | Promise<Nullable<LoginUserResponse>>;
+
     abstract updateUser(updateUserInput: UpdateUserInput): Nullable<User> | Promise<Nullable<User>>;
 
     abstract removeUser(id: number): Nullable<User> | Promise<Nullable<User>>;
@@ -81,6 +88,14 @@ export class User {
 }
 
 export class CreateUserResponse {
+    id?: Nullable<number>;
+    name?: Nullable<string>;
+    email?: Nullable<string>;
+    message?: Nullable<string>;
+    token?: Nullable<string>;
+}
+
+export class LoginUserResponse {
     id?: Nullable<number>;
     name?: Nullable<string>;
     email?: Nullable<string>;

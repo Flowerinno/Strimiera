@@ -18,10 +18,3 @@ model User {
   name      String
   password  String
 }
-
-model Message {
-  id        Int      @id @default(autoincrement())
-  message   String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
