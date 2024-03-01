@@ -1,0 +1,39 @@
+type MediaQueryResponse {
+  id: Int
+  adult: Boolean
+  backdrop_path: String
+  genre_ids: [Int]
+  original_language: String
+  original_title: String
+  overview: String
+  popularity: Float
+  poster_path: String
+  release_date: String
+  title: String
+  video: Boolean
+  vote_average: Float
+  vote_count: Int
+}
+
+input CreateMediaQueryInput {
+  message: String!
+}
+
+input UpdateMediaQueryInput {
+  id: Int!
+}
+
+type Query {
+  searchMovies(title: String!): [MediaQueryResponse]!
+  getMovie(id: Int!): MediaQueryResponse!
+}
+
+type Mutation {
+  createMediaQuery(
+    createMediaQueryInput: CreateMediaQueryInput!
+  ): MediaQueryResponse!
+  updateMediaQuery(
+    updateMediaQueryInput: UpdateMediaQueryInput!
+  ): MediaQueryResponse!
+  removeMediaQuery(id: Int!): MediaQueryResponse
+}

@@ -1,0 +1,53 @@
+type User {
+  id: Int
+  email: String
+  name: String
+  password: String
+  message: String
+  createdAt: String
+  updatedAt: String
+}
+
+# CREATE USER MUTATION ---------------------------------------------------------
+input CreateUserInput {
+  email: String!
+  name: String!
+  password: String
+}
+
+type CreateUserResponse {
+  id: Int
+  name: String
+  email: String
+  message: String
+  token: String
+}
+# ------------------------------------------------------------------------------
+
+# UPDATE USER MUTATION ---------------------------------------------------------
+input UpdateUserInput {
+  id: Int!
+  email: String
+  name: String
+  password: String
+}
+
+type UpdateUserResponse {
+  id: Int
+  email: String
+  name: String
+  message: String
+}
+
+# ------------------------------------------------------------------------------
+
+type Query {
+  users: [User]!
+  user(id: Int!): User
+}
+
+type Mutation {
+  createUser(createUserInput: CreateUserInput!): CreateUserResponse
+  updateUser(updateUserInput: UpdateUserInput!): User
+  removeUser(id: Int!): User
+}
