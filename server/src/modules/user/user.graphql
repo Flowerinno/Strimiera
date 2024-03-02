@@ -6,6 +6,7 @@ type User {
   message: String
   createdAt: String
   updatedAt: String
+  token: String
 }
 
 # CREATE USER MUTATION ---------------------------------------------------------

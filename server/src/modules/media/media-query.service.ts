@@ -15,7 +15,34 @@ export class MediaQueryService {
   moviedb = new MovieDb(this.env.get('MOVIEDB_API_KEY'));
   logger = new Logger(MediaQueryService.name);
 
-  async create(createMediaQueryInput: CreateMediaQueryInput) {}
+  /**
+   * Fetch movies on initial load and cache results
+   * @returns
+   */
+  async init() {
+    try {
+      // const preview = await this.moviedb.discoverMovie({
+      //   language: 'en-US',
+      //   sort_by: 'popularity.desc',
+      // });
+
+      const trending = await this.moviedb.moviePopular({
+        language: 'en-US',
+      });
+
+      // const topRated = await this.moviedb.movieTopRated({
+      //   language: 'en-US',
+      // });
+
+      return {
+        // preview: preview.results,
+        trending: trending.results,
+        // topRated: topRated.results,
+      };
+    } catch (error) {
+      this.logger.error('Failed to init', error);
+    }
+  }
 
   async searchMovies(title: string) {
     try {
@@ -30,10 +57,4 @@ export class MediaQueryService {
   }
 
   async findOne(id: number) {}
-
-  update(id: number, updateMediaQueryInput: UpdateMediaQueryInput) {
-    return `This action updates a #${id} mediaQuery`;
-  }
-
-  async remove(id: number) {}
 }

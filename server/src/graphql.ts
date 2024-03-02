@@ -8,14 +8,6 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export class CreateMediaQueryInput {
-    message: string;
-}
-
-export class UpdateMediaQueryInput {
-    id: number;
-}
-
 export class CreateUserInput {
     email: string;
     name: string;
@@ -51,10 +43,18 @@ export class MediaQueryResponse {
     vote_count?: Nullable<number>;
 }
 
+export class InitResponse {
+    preview?: Nullable<Nullable<MediaQueryResponse>[]>;
+    trending?: Nullable<Nullable<MediaQueryResponse>[]>;
+    topRated?: Nullable<Nullable<MediaQueryResponse>[]>;
+}
+
 export abstract class IQuery {
     abstract searchMovies(title: string): Nullable<MediaQueryResponse>[] | Promise<Nullable<MediaQueryResponse>[]>;
 
     abstract getMovie(id: number): MediaQueryResponse | Promise<MediaQueryResponse>;
+
+    abstract init(): Nullable<InitResponse> | Promise<Nullable<InitResponse>>;
 
     abstract users(): Nullable<User>[] | Promise<Nullable<User>[]>;
 
@@ -62,11 +62,7 @@ export abstract class IQuery {
 }
 
 export abstract class IMutation {
-    abstract createMediaQuery(createMediaQueryInput: CreateMediaQueryInput): MediaQueryResponse | Promise<MediaQueryResponse>;
-
-    abstract updateMediaQuery(updateMediaQueryInput: UpdateMediaQueryInput): MediaQueryResponse | Promise<MediaQueryResponse>;
-
-    abstract removeMediaQuery(id: number): Nullable<MediaQueryResponse> | Promise<Nullable<MediaQueryResponse>>;
+    abstract addFavourite(id: number): Nullable<MediaQueryResponse> | Promise<Nullable<MediaQueryResponse>>;
 
     abstract createUser(createUserInput: CreateUserInput): Nullable<CreateUserResponse> | Promise<Nullable<CreateUserResponse>>;
 
@@ -85,6 +81,7 @@ export class User {
     message?: Nullable<string>;
     createdAt?: Nullable<string>;
     updatedAt?: Nullable<string>;
+    token?: Nullable<string>;
 }
 
 export class CreateUserResponse {

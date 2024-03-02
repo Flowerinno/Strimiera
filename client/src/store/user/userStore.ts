@@ -2,6 +2,9 @@ import { create } from "zustand";
 
 type State = {
 	token: null | string;
+	name: null | string;
+	email: null | string;
+	id: null | string;
 };
 
 type Actions = {
@@ -12,10 +15,14 @@ type Actions = {
 
 export const useUserStore = create<State & Actions>((set, get) => ({
 	token: null,
+	name: null,
+	email: null,
+	id: null,
 	setToken: (token) =>
-		set(() => ({
+		set((state) => ({
+			...state,
 			token,
 		})),
-	resetToken: () => set({ token: null }),
+	resetToken: () => set((state) => ({ ...state, token: null })),
 	getToken: () => get().token,
 }));

@@ -9,7 +9,7 @@ import { AppService } from './app.service';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
-import { MediaQueryModule } from './modules/media-query/media-query.module';
+import { MediaQueryModule } from './modules/media/media-query.module';
 import { PrismaModule } from './modules/prisma/prisma.module';
 import { EnvModule } from './modules/env/env.module';
 import { envSchema } from './modules/env/env';
