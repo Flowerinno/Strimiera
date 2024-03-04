@@ -8,6 +8,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
+export class AddToFavouriteInput {
+    movieId: number;
+    userId: number;
+}
+
 export class CreateUserInput {
     email: string;
     name: string;
@@ -43,6 +48,10 @@ export class MediaQueryResponse {
     vote_count?: Nullable<number>;
 }
 
+export class MessageResponse {
+    message?: Nullable<string>;
+}
+
 export class InitResponse {
     preview?: Nullable<Nullable<MediaQueryResponse>[]>;
     trending?: Nullable<Nullable<MediaQueryResponse>[]>;
@@ -54,6 +63,8 @@ export abstract class IQuery {
 
     abstract getMovie(id: number): MediaQueryResponse | Promise<MediaQueryResponse>;
 
+    abstract getFavourites(userId: number): Nullable<Nullable<MediaQueryResponse>[]> | Promise<Nullable<Nullable<MediaQueryResponse>[]>>;
+
     abstract init(): Nullable<InitResponse> | Promise<Nullable<InitResponse>>;
 
     abstract users(): Nullable<User>[] | Promise<Nullable<User>[]>;
@@ -62,7 +73,7 @@ export abstract class IQuery {
 }
 
 export abstract class IMutation {
-    abstract addFavourite(id: number): Nullable<MediaQueryResponse> | Promise<Nullable<MediaQueryResponse>>;
+    abstract addFavourite(addToFavourite?: Nullable<AddToFavouriteInput>): Nullable<MessageResponse> | Promise<Nullable<MessageResponse>>;
 
     abstract createUser(createUserInput: CreateUserInput): Nullable<CreateUserResponse> | Promise<Nullable<CreateUserResponse>>;
 

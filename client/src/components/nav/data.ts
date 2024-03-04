@@ -11,26 +11,35 @@ export const links_section_1 = [
 	{
 		id: 1,
 		title: "Home",
-		url: "/",
 		image: FilmIcon,
+		search: {},
 	},
 	{
 		id: 2,
 		title: "Favourites",
-		url: "/favourites",
 		image: Favourites,
+		section: "favourites",
+		search: {
+			section: "favourites",
+		},
 	},
 	{
 		id: 3,
 		title: "Trending",
-		url: "/trending",
 		image: TrendingIcon,
+		section: "trending",
+		search: {
+			section: "trending",
+		},
 	},
 	{
 		id: 4,
 		title: "Coming soon",
-		url: "/coming",
 		image: ComingSoonIcon,
+		section: "coming-soon",
+		search: {
+			section: "coming-soon",
+		},
 	},
 ];
 
@@ -38,14 +47,20 @@ export const links_section_2 = [
 	{
 		id: 1,
 		title: "Community",
-		url: "/community",
 		image: CommunityIcon,
+		section: "community",
+		search: {
+			section: "community",
+		},
 	},
 	{
 		id: 2,
 		title: "Social",
-		url: "/social",
 		image: SocialIcon,
+		section: "social",
+		search: {
+			section: "social",
+		},
 	},
 ];
 
@@ -53,13 +68,17 @@ export const links_section_3 = [
 	{
 		id: 1,
 		title: "Settings",
-		url: "/settings",
 		image: SettingsIcon,
+		section: "settings",
+		search: {
+			section: "settings",
+		},
 	},
 	{
 		id: 2,
 		title: "Logout",
-		url: "/logout",
 		image: LogoutIcon,
+		to: "/logout",
+		search: {},
 	},
 ];

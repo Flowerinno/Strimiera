@@ -2,12 +2,12 @@ import { createFileRoute, redirect } from "@tanstack/react-router";
 import { Logout } from "../pages";
 import { ROUTES, TOAST } from "../common";
 
-import { getCookie, removeCookie } from "../features";
+import { getToken, removeCookie } from "../features";
 
 export const Route = createFileRoute("/logout")({
 	component: Logout,
 	beforeLoad: async () => {
-		const token = getCookie();
+		const token = getToken();
 
 		if (!token) {
 			TOAST.error("You are not logged in.");
@@ -18,7 +18,7 @@ export const Route = createFileRoute("/logout")({
 
 		const res = confirm("Are you sure you want to logout?");
 		if (res) {
-            TOAST.error("You have been logged out.");
+			TOAST.error("You have been logged out.");
 			removeCookie();
 			throw redirect({
 				to: ROUTES.home,

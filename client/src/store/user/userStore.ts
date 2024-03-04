@@ -4,11 +4,12 @@ type State = {
 	token: null | string;
 	name: null | string;
 	email: null | string;
-	id: null | string;
+	id: null | number;
 };
 
 type Actions = {
 	setToken: (token: string | null) => void;
+	setUser: (user: State) => void;
 	resetToken: () => void;
 	getToken: () => null | string;
 };
@@ -23,6 +24,7 @@ export const useUserStore = create<State & Actions>((set, get) => ({
 			...state,
 			token,
 		})),
+	setUser: (user) => set((state) => ({ ...state, ...user })),
 	resetToken: () => set((state) => ({ ...state, token: null })),
 	getToken: () => get().token,
 }));

@@ -1,5 +1,7 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { MediaQueryService } from './media-query.service';
+import { AddFavouriteinput } from './dto/add-favourite.input';
+import { AddToFavouriteInput } from 'src/graphql';
 
 @Resolver('MediaQuery')
 export class MediaQueryResolver {
@@ -12,7 +14,7 @@ export class MediaQueryResolver {
 
   @Query('getMovie')
   findOne(@Args('id') id: number) {
-    return this.mediaQueryService.findOne(id);
+    return 'This action returns a #${id} movie';
   }
 
   @Query('init')
@@ -20,8 +22,13 @@ export class MediaQueryResolver {
     return this.mediaQueryService.init();
   }
 
+  @Query('getFavourites')
+  getFavourites(@Args('userId') userId: string) {
+    return this.mediaQueryService.getFavourites(userId);
+  }
+
   @Mutation('addFavourite')
-  create(@Args('id') id: number) {
-    return 'fav';
+  create(@Args('addToFavourite') addToFavourite: AddFavouriteinput) {
+    return this.mediaQueryService.addToFavourite(addToFavourite);
   }
 }

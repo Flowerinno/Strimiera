@@ -15,7 +15,10 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
 const documents = {
     "\n\tmutation createUser($email: String!, $name: String!, $password: String) {\n\t\tcreateUser(\n\t\t\tcreateUserInput: { email: $email, name: $name, password: $password }\n\t\t) {\n\t\t\tid\n\t\t\tname\n\t\t\temail\n\t\t\tmessage\n\t\t\ttoken\n\t\t}\n\t}\n": types.CreateUserDocument,
     "\n\tmutation login($email: String!, $password: String!) {\n\t\tlogin(loginUserInput: { email: $email, password: $password }) {\n\t\t\tid\n\t\t\tname\n\t\t\temail\n\t\t\tmessage\n\t\t\ttoken\n\t\t}\n\t}\n": types.LoginDocument,
+    "\n\tmutation addFavourite($movieId: Int!, $userId: Int!) {\n\t\taddFavourite(addToFavourite: { movieId: $movieId, userId: $userId }) {\n\t\t\tmessage\n\t\t}\n\t}\n": types.AddFavouriteDocument,
+    "\n\tquery getUser($id: Int!) {\n\t\tuser(id: $id) {\n\t\t\tid\n\t\t\tname\n\t\t\temail\n\t\t}\n\t}\n": types.GetUserDocument,
     "\n\tquery init {\n\t\tinit {\n\t\t\ttrending {\n\t\t\t\tid\n\t\t\t\ttitle\n\t\t\t\toverview\n\t\t\t\tposter_path\n\t\t\t\trelease_date\n\t\t\t\tvote_average\n\t\t\t\tpopularity\n\t\t\t\toriginal_language\n\t\t\t}\n\t\t}\n\t}\n": types.InitDocument,
+    "\n\tquery getFavourites($userId: Int!) {\n\t\tgetFavourites(userId: $userId) {\n\t\t\tid\n\t\t\ttitle\n\t\t\tposter_path\n\t\t\trelease_date\n\t\t}\n\t}\n": types.GetFavouritesDocument,
 };
 
 /**
@@ -43,7 +46,19 @@ export function graphql(source: "\n\tmutation login($email: String!, $password: 
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function graphql(source: "\n\tmutation addFavourite($movieId: Int!, $userId: Int!) {\n\t\taddFavourite(addToFavourite: { movieId: $movieId, userId: $userId }) {\n\t\t\tmessage\n\t\t}\n\t}\n"): (typeof documents)["\n\tmutation addFavourite($movieId: Int!, $userId: Int!) {\n\t\taddFavourite(addToFavourite: { movieId: $movieId, userId: $userId }) {\n\t\t\tmessage\n\t\t}\n\t}\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n\tquery getUser($id: Int!) {\n\t\tuser(id: $id) {\n\t\t\tid\n\t\t\tname\n\t\t\temail\n\t\t}\n\t}\n"): (typeof documents)["\n\tquery getUser($id: Int!) {\n\t\tuser(id: $id) {\n\t\t\tid\n\t\t\tname\n\t\t\temail\n\t\t}\n\t}\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function graphql(source: "\n\tquery init {\n\t\tinit {\n\t\t\ttrending {\n\t\t\t\tid\n\t\t\t\ttitle\n\t\t\t\toverview\n\t\t\t\tposter_path\n\t\t\t\trelease_date\n\t\t\t\tvote_average\n\t\t\t\tpopularity\n\t\t\t\toriginal_language\n\t\t\t}\n\t\t}\n\t}\n"): (typeof documents)["\n\tquery init {\n\t\tinit {\n\t\t\ttrending {\n\t\t\t\tid\n\t\t\t\ttitle\n\t\t\t\toverview\n\t\t\t\tposter_path\n\t\t\t\trelease_date\n\t\t\t\tvote_average\n\t\t\t\tpopularity\n\t\t\t\toriginal_language\n\t\t\t}\n\t\t}\n\t}\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n\tquery getFavourites($userId: Int!) {\n\t\tgetFavourites(userId: $userId) {\n\t\t\tid\n\t\t\ttitle\n\t\t\tposter_path\n\t\t\trelease_date\n\t\t}\n\t}\n"): (typeof documents)["\n\tquery getFavourites($userId: Int!) {\n\t\tgetFavourites(userId: $userId) {\n\t\t\tid\n\t\t\ttitle\n\t\t\tposter_path\n\t\t\trelease_date\n\t\t}\n\t}\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

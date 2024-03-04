@@ -1,15 +1,11 @@
 import { graphql } from "../__generated__";
 
 export const GET_USER_QUERY = graphql(`
-	mutation createUser($email: String!, $name: String!, $password: String) {
-		createUser(
-			createUserInput: { email: $email, name: $name, password: $password }
-		) {
+	query getUser($id: Int!) {
+		user(id: $id) {
 			id
 			name
 			email
-			message
-			token
 		}
 	}
 `);
@@ -27,6 +23,17 @@ export const INIT_QUERY = graphql(`
 				popularity
 				original_language
 			}
+		}
+	}
+`);
+
+export const GET_FAVOURITES_QUERY = graphql(`
+	query getFavourites($userId: Int!) {
+		getFavourites(userId: $userId) {
+			id
+			title
+			poster_path
+			release_date
 		}
 	}
 `);

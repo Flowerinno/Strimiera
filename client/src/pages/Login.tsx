@@ -10,7 +10,7 @@ import { Button, TextField } from "../components";
 import { Text } from "../components/ui/Text";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { ROUTES, TOAST } from "../common";
-import { getCookie, setCookie } from "../features";
+import { getToken, setCookie } from "../features";
 
 export const Login = () => {
 	const navigate = useNavigate();
@@ -38,8 +38,11 @@ export const Login = () => {
 			});
 
 			if (data?.login?.token) {
-				useUserStore.getState().setToken(data.login.token);
-				setCookie(data?.login?.token);
+				const { message, ...rest } = data.login;
+				//@ts-expect-error
+				useUserStore.getState().setUser(rest);
+				setCookie({ value: data?.login?.token as string });
+				setCookie({ name: "strimiera_user", value: JSON.stringify(rest) });
 				TOAST.sucess("Welcome back!");
 				navigate({
 					to: ROUTES.home,
@@ -97,7 +100,7 @@ export const Login = () => {
 				<Link
 					className="mt-3 p-1 text-white hover:outline-dashed transition-all duration-300"
 					to={ROUTES.register}
-					onClick={() => getCookie()}
+					onClick={() => getToken()}
 				>
 					Don't have an account? Sign up
 				</Link>

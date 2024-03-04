@@ -11,6 +11,7 @@ import { Text } from "../components/ui/Text";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { ROUTES, TOAST } from "../common";
 import { setCookie } from "../features";
+import { CreateUserResponse } from "../__generated__/graphql";
 
 export const Register = () => {
 	const navigate = useNavigate();
@@ -40,9 +41,12 @@ export const Register = () => {
 			});
 
 			if (data?.createUser?.token) {
-				useUserStore.getState().setToken(data.createUser.token);
+				const { message, ...rest } = data.createUser;
+				//@ts-expect-error
+				useUserStore.getState().setUser(rest);
 
-				setCookie(data?.createUser?.token);
+				setCookie({ value: data?.createUser?.token as string });
+				setCookie({ name: "strimiera_user", value: JSON.stringify(rest) });
 
 				TOAST.sucess("Account created successfully");
 				navigate({

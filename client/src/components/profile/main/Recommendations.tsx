@@ -1,3 +1,3 @@
 export const Recommendations = () => {
-	return <div>Recommendations</div>;
+	return <div className="bg-[#21201E]">Recommendations</div>;
 };

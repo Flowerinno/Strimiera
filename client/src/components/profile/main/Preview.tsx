@@ -1,7 +1,9 @@
 import { Movie } from "../../types";
-import { Image } from "../../ui";
+import { Favourite, Image } from "../../ui";
 import FAV from "../../../assets/images/FAV.png";
 import { Button } from "../../forms";
+import { useAddToFavourite } from "../../../hooks";
+import { useUserStore } from "../../../store";
 
 export const Preview = ({
 	title,
@@ -11,6 +13,11 @@ export const Preview = ({
 	vote_average,
 	original_language,
 }: Movie) => {
+	const userId = useUserStore((state) => state.id) as string;
+	const { handleAdd } = useAddToFavourite();
+
+	if (!id) return null;
+
 	return (
 		<div
 			id={`${id}`}
@@ -44,9 +51,10 @@ export const Preview = ({
 						text="Watch Now"
 						className="button min-w-44 w-64 h-16 self-end"
 					/>
-					<Image
-						src={FAV}
-						alt="Add to favourite"
+					<Favourite
+						userId={userId}
+						movieId={id}
+						handleAdd={handleAdd}
 						className="h-16 contain cursor-pointer hover:scale-105 transition-all duration-200 ease-out"
 					/>
 				</div>

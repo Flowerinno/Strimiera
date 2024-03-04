@@ -15,6 +15,15 @@ type MediaQueryResponse {
   vote_count: Int
 }
 
+input AddToFavouriteInput {
+  movieId: Int!
+  userId: Int!
+}
+
+type MessageResponse {
+  message: String
+}
+
 type InitResponse {
   preview: [MediaQueryResponse]
   trending: [MediaQueryResponse]
@@ -24,9 +33,10 @@ type InitResponse {
 type Query {
   searchMovies(title: String!): [MediaQueryResponse]!
   getMovie(id: Int!): MediaQueryResponse!
+  getFavourites(userId: Int!): [MediaQueryResponse]
   init: InitResponse
 }
 
 type Mutation {
-  addFavourite(id: Int!): MediaQueryResponse
+  addFavourite(addToFavourite: AddToFavouriteInput): MessageResponse
 }
