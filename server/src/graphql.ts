@@ -8,18 +8,20 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export class CreateMediaQueryInput {
-    message: string;
-}
-
-export class UpdateMediaQueryInput {
-    id: number;
+export class AddToFavouriteInput {
+    movieId: number;
+    userId: number;
 }
 
 export class CreateUserInput {
     email: string;
     name: string;
     password?: Nullable<string>;
+}
+
+export class LoginUserInput {
+    email: string;
+    password: string;
 }
 
 export class UpdateUserInput {
@@ -46,10 +48,24 @@ export class MediaQueryResponse {
     vote_count?: Nullable<number>;
 }
 
+export class MessageResponse {
+    message?: Nullable<string>;
+}
+
+export class InitResponse {
+    preview?: Nullable<Nullable<MediaQueryResponse>[]>;
+    trending?: Nullable<Nullable<MediaQueryResponse>[]>;
+    topRated?: Nullable<Nullable<MediaQueryResponse>[]>;
+}
+
 export abstract class IQuery {
     abstract searchMovies(title: string): Nullable<MediaQueryResponse>[] | Promise<Nullable<MediaQueryResponse>[]>;
 
     abstract getMovie(id: number): MediaQueryResponse | Promise<MediaQueryResponse>;
+
+    abstract getFavourites(userId: number): Nullable<Nullable<MediaQueryResponse>[]> | Promise<Nullable<Nullable<MediaQueryResponse>[]>>;
+
+    abstract init(): Nullable<InitResponse> | Promise<Nullable<InitResponse>>;
 
     abstract users(): Nullable<User>[] | Promise<Nullable<User>[]>;
 
@@ -57,13 +73,11 @@ export abstract class IQuery {
 }
 
 export abstract class IMutation {
-    abstract createMediaQuery(createMediaQueryInput: CreateMediaQueryInput): MediaQueryResponse | Promise<MediaQueryResponse>;
-
-    abstract updateMediaQuery(updateMediaQueryInput: UpdateMediaQueryInput): MediaQueryResponse | Promise<MediaQueryResponse>;
-
-    abstract removeMediaQuery(id: number): Nullable<MediaQueryResponse> | Promise<Nullable<MediaQueryResponse>>;
+    abstract addFavourite(addToFavourite?: Nullable<AddToFavouriteInput>): Nullable<MessageResponse> | Promise<Nullable<MessageResponse>>;
 
     abstract createUser(createUserInput: CreateUserInput): Nullable<CreateUserResponse> | Promise<Nullable<CreateUserResponse>>;
+
+    abstract login(loginUserInput: LoginUserInput): Nullable<LoginUserResponse> | Promise<Nullable<LoginUserResponse>>;
 
     abstract updateUser(updateUserInput: UpdateUserInput): Nullable<User> | Promise<Nullable<User>>;
 
@@ -78,9 +92,18 @@ export class User {
     message?: Nullable<string>;
     createdAt?: Nullable<string>;
     updatedAt?: Nullable<string>;
+    token?: Nullable<string>;
 }
 
 export class CreateUserResponse {
+    id?: Nullable<number>;
+    name?: Nullable<string>;
+    email?: Nullable<string>;
+    message?: Nullable<string>;
+    token?: Nullable<string>;
+}
+
+export class LoginUserResponse {
     id?: Nullable<number>;
     name?: Nullable<string>;
     email?: Nullable<string>;

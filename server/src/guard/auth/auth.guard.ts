@@ -24,7 +24,8 @@ export class AuthGuard implements CanActivate {
       }
 
       try {
-        this.auth.validateToken(token);
+        const res = await this.auth.validateToken(token);
+        console.log(res);
       } catch {
         throw new UnauthorizedException();
       }

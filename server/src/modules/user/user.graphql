@@ -6,6 +6,7 @@ type User {
   message: String
   createdAt: String
   updatedAt: String
+  token: String
 }
 
 # CREATE USER MUTATION ---------------------------------------------------------
@@ -16,6 +17,21 @@ input CreateUserInput {
 }
 
 type CreateUserResponse {
+  id: Int
+  name: String
+  email: String
+  message: String
+  token: String
+}
+# ------------------------------------------------------------------------------
+
+# LOGIN USER MUTATION ----------------------------------------------------------
+input LoginUserInput {
+  email: String!
+  password: String!
+}
+
+type LoginUserResponse {
   id: Int
   name: String
   email: String
@@ -38,7 +54,6 @@ type UpdateUserResponse {
   name: String
   message: String
 }
-
 # ------------------------------------------------------------------------------
 
 type Query {
@@ -48,6 +63,7 @@ type Query {
 
 type Mutation {
   createUser(createUserInput: CreateUserInput!): CreateUserResponse
+  login(loginUserInput: LoginUserInput!): LoginUserResponse
   updateUser(updateUserInput: UpdateUserInput!): User
   removeUser(id: Int!): User
 }

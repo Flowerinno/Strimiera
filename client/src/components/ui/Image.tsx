@@ -6,9 +6,5 @@ interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
 }
 
 export const Image = ({ src, alt, ...rest }: ImageProps) => {
-	return (
-		// <div id="image_container" >
-		<img src={src} alt={alt} {...rest} />
-		// </div>
-	);
+	return <img src={src} alt={alt} {...rest} />;
 };

@@ -4,6 +4,7 @@ import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { Res, UseGuards } from '@nestjs/common';
 import { AuthGuard } from 'src/guard/auth/auth.guard';
+import { LoginUserInput } from './dto/login-user-input';
 
 @Resolver('User')
 export class UserResolver {
@@ -11,8 +12,12 @@ export class UserResolver {
 
   @Mutation('createUser')
   create(@Args('createUserInput') createUserInput: CreateUserInput) {
-    
     return this.userService.create(createUserInput);
+  }
+
+  @Mutation('login')
+  login(@Args('loginUserInput') loginUserInput: LoginUserInput) {
+    return this.userService.login(loginUserInput);
   }
 
   @Query('users')
